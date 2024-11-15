@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; // Importa useState
-import { StyleSheet, View, Text, Image, Button } from 'react-native';
+import { StyleSheet, View, Text, Image, Button, ScrollView  } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const ProductDetail = ({ route }) => {
@@ -7,7 +7,7 @@ const ProductDetail = ({ route }) => {
   const [selectedSize, setSelectedSize] = useState("S"); // Inicializa el estado para selectedSize
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Image source={product.img} style={styles.productImage} />
       <Text style={styles.seasonText}>Nueva temporada</Text>
       <Text style={styles.productName}>{product.productName}</Text>
@@ -20,17 +20,20 @@ const ProductDetail = ({ route }) => {
         <Picker.Item label="M" value="M" />
         <Picker.Item label="L" value="L" />
       </Picker>
-      <Button
+      <Button style={styles.bcompra}
         title="Agregar al carrito"
         onPress={() => alert('Producto agregado al carrito')}
       />
       <Text style={styles.deliveryText}>Entrega estimada: el día que llegue el camión</Text>
       <View style={styles.iconContainer}>
+		
         <Text>🛒</Text>
+
         <Text>VICINO</Text>
+
         <Text>👤</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 200,
+    height: 350,
     resizeMode: 'contain',
   },
   seasonText: {
@@ -58,22 +61,29 @@ const styles = StyleSheet.create({
   productPrice: {
     color: 'green',
     fontSize: 18,
+	paddingTop:5,
   },
   picker: {
-    borderRadius: 10,
-    height: 50,
-    width: 150,
+	marginBottom:10,
+	borderRadius: 10,
+    height: 200,
+    width: 355,
     marginTop: 15,
   },
+  bcompra:{
+		marginTop:0,
+		borderRadius: 50,
+		padding: 10,
+  },
   deliveryText: {
-    marginTop: 20,
+    marginTop: 30,
     fontSize: 16,
     color: '#888',
   },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 50,
   },
 });
 
