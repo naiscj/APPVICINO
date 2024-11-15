@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { DataContext } from "../Context/DataContext.js";
 import { Pressable, View, FlatList, Text, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { handleAddToCart } from '../Context/DataContext.js';
 
 const Products = () => {
     const navigation = useNavigation(); // Obtén el objeto de navegación
@@ -74,15 +75,16 @@ const Products = () => {
         },
     ];
 
-    const handleBuyPress = (product) => {
-        buyProducts(product); // Usa buyProducts directamente desde el contexto
-    };
+	const handleBuyPress = (product) => {
+		buyProducts(product); // Use buyProducts directly from the context
+		alert('Producto agregado al carrito'); // Show alert message
+	  };
 
-    /*
+    
 	const handleProductPress = (product) => {
         navigation.navigate('ProductDetail', { product });
     };
-	*/
+	
 
     return (
         <View style={styles.container}>
@@ -94,7 +96,7 @@ const Products = () => {
                             <Image source={item.img} style={styles.productImage} />
                             <Text style={styles.productName}>{item.productName}</Text>
                             <Text style={styles.productPrice}>$ {item.price}</Text>
-                            <Pressable style={styles.buyButton} onPress={() => handleBuyPress(item)}>
+                            <Pressable style={styles.buyButton} onPress={() => handleBuyPress(item) }>
                                 <Text style={styles.buyButtonText}>Comprar</Text>
                             </Pressable>
                         </View>
@@ -111,8 +113,8 @@ const Products = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 80,
+        paddingBottom: 150,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#d9c2a7',
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     },
     row: {
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 15,
     },
     buyButton: {
         backgroundColor: "#000",

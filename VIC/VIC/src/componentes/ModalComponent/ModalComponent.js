@@ -1,6 +1,16 @@
 import React, { useState, useContext } from "react";
-import { Modal, StyleSheet, Text, Pressable, View, FlatList } from "react-native";
+import { Modal, StyleSheet, Text, Pressable, View, FlatList , Image} from "react-native";
 import { DataContext } from "../Context/DataContext";
+import bagIcon from '../../../assets/images/bag.png';
+import addIcon from '../../../assets/images/add.png';
+import closeIcon from '../../../assets/images/close.png';
+import closewIcon from '../../../assets/images/closew.png';
+import minusIcon from '../../../assets/images/remove.png';
+
+const handleAddToCart = (item) => {
+	alert('Producto agregado al carrito');
+	handleBuyPress(item);
+  };
 
 const ModalComponent = () => {
   const { cart, setCart, buyProducts } = useContext(DataContext);
@@ -30,7 +40,7 @@ const ModalComponent = () => {
   return (
     <View>
       <Pressable style={styles.modalButton} onPress={() => setModalVisible(true)}>
-        <Text style={styles.cartIcon}>🛒</Text>
+	  <Image source={bagIcon} style={styles.cartIcon} />
       </Pressable>
       <Modal
         animationType='slide'
@@ -41,8 +51,8 @@ const ModalComponent = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>❌</Text>
+            <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
+			<Image source={closewIcon} style={styles.buttonClose} />
             </Pressable>
             <Text style={styles.modalText}>Cart Items:</Text>
             <FlatList
@@ -53,20 +63,20 @@ const ModalComponent = () => {
 
                   <Text style={styles.modalTextProduct}>
                     <Pressable onPress={() => handleDreasePress(item)}>
-                      <Text>➖</Text>
+					<Image source={minusIcon} style={styles.carritoIcons} />
                     </Pressable>
 
                     <Text style={styles.modalTextProduct}>{item.quanty}</Text>
 
                     <Pressable onPress={() => handleBuyPress(item)}>
-                      <Text>➕</Text>
+					<Image source={addIcon} style={styles.carritoIcons} />
                     </Pressable>
                   </Text>
 
                   <Text style={styles.modalTextProduct}>
                     Total: ${item.quanty * item.price}
                     <Pressable onPress={() => handleDeletePress(item)}>
-                      <Text>❌</Text>
+					<Image source={closeIcon} style={styles.carritoIcons} />
                     </Pressable>
                   </Text>
                 </View>
@@ -74,6 +84,7 @@ const ModalComponent = () => {
               keyExtractor={(item) => item.id}
             />
             <Text style={styles.totalText}>Total: ${total}</Text>
+
           </View>
         </View>
       </Modal>
@@ -111,7 +122,13 @@ const styles = StyleSheet.create({
     left: 120,
   },
   buttonClose: {
-    backgroundColor: "#111111",
+    backgroundColor: "#d9c2a7",
+	fontSize: 20,
+	width: 40,
+	height:40,
+	margin: 5,
+	borderRadius: 10,
+	padding: 1,
   },
   textStyle: {
     fontWeight: "bold",
@@ -123,24 +140,42 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   modalButton: {
-    position: "fixed",
-    bottom: 30,
-    left: 150,
-    backgroundColor: "#111111",
+    position: "absolute",
+    bottom: 665,
+    left: 310,
     padding: 10,
     borderRadius: 30,
+	zIndex: 1000, 
   },
   cartIcon: {
     fontSize: 20,
+	width: 40,
+	height:40,
+  },
+  carritoIcons:{
+	fontSize: 20,
+	width: 30,
+	height:30,
+	margin: 5,
+	marginHorizontal: 10,
+	backgroundColor: "#d9c2a7",
+	borderRadius: 30,
+	padding: 2,
   },
   cartItem: {
     marginBottom: 10,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginVertical: 5, 
   },
   modalTextProduct: {
     marginBottom: 1,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
+	paddingleft:3,
+	paddingRight:3,
+
   },
   totalText: {
     marginTop: 10,
@@ -150,3 +185,4 @@ const styles = StyleSheet.create({
 });
 
 export default ModalComponent;
+export { handleAddToCart };
